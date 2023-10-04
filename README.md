@@ -37,11 +37,10 @@ This will start the Django application and PostgreSQL database in separate conta
 
 4. Access the Django application at http://localhost:8000
 
-
-## Database Setup and Migrations
+## Database Setup and Migrations
 The PostgreSQL database is set up automatically using the environment variables you provided in the .env file. The Django application will create the necessary database tables when you run migrations.
 
 To apply migrations:
 
-    docker-compose exec app python manage.py migrate
+    docker-compose exec app poetry run python manage.py migrate
 
