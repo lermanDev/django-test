@@ -9,7 +9,7 @@ from django.core.files.uploadedfile import SimpleUploadedFile
 
 
 class FileValidatorTests(TestCase):
-    file_content = pd.read_excel("/app/files/test_file_base.xlsx")
+    file_content = open("/app/files/test_xlsx_good_clean.xlsx", "rb")
     print(file_content)
     excel_file = SimpleUploadedFile('test_file_base.xlsx', file_content.read(), content_type='application/vnd.ms-excel')
 

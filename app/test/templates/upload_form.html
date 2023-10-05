@@ -12,12 +12,13 @@
                 <form action="{% url 'upload' %}" method="post" enctype="multipart/form-data">
                     {% csrf_token %}
                     <table>
-                        {{ form.as_table }}
+                        {{ form }}
                     </table>
                     <input type="submit" value="Submit" class="btn btn-primary btn-lg">
                 </form>
             </div>
             {% if form.errors %}
+                <h3>Upload failed</h3>
                 <div class="alert alert-danger">
                     {{ form.errors }}
                 </div>

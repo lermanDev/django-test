@@ -7,12 +7,21 @@
     <div class="jumbotron">
         <div class="container">
             <h1 class="display-3 green">¡Complete!</h1>
-            <p>We have imported your contact list, but next contacts are duplicated.</p>
-            <ul>
+            <p>We have imported your contact list, but next contacts were duplicated and not imported.</p>
+            <table class="table">
+                <tr>
+                    <th>full_name</th>
+                    <th>primary_number</th>
+                    <th>secondary_number</th>
+                </tr>
                 {% for o in duplicates_index_list %}
-                <li>{{o.full_name}} {{o.primary_number}} {{o.secondary_number}}</li>
+                    <tr>
+                        <td>{{o.full_name}}</td>
+                        <td>{{o.primary_number}}</td>
+                        <td>{{o.secondary_number}}</td>
+                    </tr>
                 {% endfor %}
-            </ul>
+            </table>
         </div>
     </div>
 </main>
