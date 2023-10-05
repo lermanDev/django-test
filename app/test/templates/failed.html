@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %} Upload your file {% endblock %}
+
+{% block content %}
+<main role="main">
+    <div class="jumbotron">
+        <div class="container">
+            <h1 class="display-3 green">¡Complete!</h1>
+            <p>We have imported your contact list, but next contacts are duplicated.</p>
+            <ul>
+                {% for o in duplicates_index_list %}
+                <li>{{o.full_name}} {{o.primary_number}} {{o.secondary_number}}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</main>
+{% endblock %}
+
+

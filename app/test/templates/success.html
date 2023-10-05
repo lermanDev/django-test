@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %} Upload your file {% endblock %}
+
+{% block content %}
+<main role="main">
+    <div class="jumbotron">
+        <div class="container">
+            <h1 class="display-3 green">¡UPLOAD COMPLETE!</h1>
+            <p>List of contacts</p>
+            <table class="table">
+                <tr>
+                    <th>full_name</th>
+                    <th>primary_number</th>
+                    <th>secondary_number</th>
+                </tr>
+                {% for o in phone_book_list %}
+                <tr>
+                    <td>{{o.full_name}}</td>
+                    <td>{{o.primary_number}}</td>
+                    <td>{{o.secondary_number}}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</main>
+{% endblock %}
+
+

@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %} Upload your file {% endblock %}
+
+{% block content %}
+<main role="main">
+    <div class="jumbotron">
+        <div class="container">
+            <h1 class="display-3">¡WELCOME!</h1>
+            <p>Upload an Excel file with the following format: full_name, primary_number, secondary_number</p>
+            <div class="form-inline">
+                <form action="{% url 'upload' %}" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <table>
+                        {{ form.as_table }}
+                    </table>
+                    <input type="submit" value="Submit" class="btn btn-primary btn-lg">
+                </form>
+            </div>
+            {% if form.errors %}
+                <div class="alert alert-danger">
+                    {{ form.errors }}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</main>
+{% endblock %}
+
+
