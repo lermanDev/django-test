@@ -21,9 +21,21 @@ Before you begin, ensure you have the following installed:
 
 2. Create a .env file in the project root directory with the following environment variables:
 
+    PostgreSQL vars
+
     - POSTGRES_DB=your_database_name
     - POSTGRES_USER=your_database_user
     - POSTGRES_PASSWORD=your_database_password
+
+    Django vars
+
+    - DEBUG=1
+    - SQL_ENGINE=django.db.backends.postgresql
+    - SQL_DATABASE=your_database_name
+    - SQL_USER=your_database_user
+    - SQL_PASSWORD=your_database_password
+    - SQL_HOST=database
+    - SQL_PORT=5432
 
 Replace your_database_name, your_database_user, and your_database_password with your preferred database configuration.
 

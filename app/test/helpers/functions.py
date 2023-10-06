@@ -19,7 +19,7 @@ def normalize_phone_number(phone_number_str):
             phonenumbers.PhoneNumberFormat.INTERNATIONAL
         )
 
-        return normalized_number
+        return normalized_number.replace(" ", "")
     except phonenumbers.phonenumberutil.NumberParseException:
         return None
 
