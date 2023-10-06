@@ -3,7 +3,6 @@ import phonenumbers
 
 def normalize_phone_number(phone_number_str: str):
     try:
-        print(phone_number_str)
         # Remove any non-numeric characters and replace hyphens with spaces
         phone_number_str = "".join(
             char for char in phone_number_str if char.isdigit() or char in "+"
@@ -22,7 +21,6 @@ def normalize_phone_number(phone_number_str: str):
         )
         return normalized_number
     except phonenumbers.phonenumberutil.NumberParseException:
-        print("NONE ERROR", phone_number_str)
         return None
 
 
