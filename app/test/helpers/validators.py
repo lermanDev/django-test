@@ -30,7 +30,7 @@ class FileValidator(object):
 
             if not validation["result"]:
                 self._handle_validation_error(
-                    "content_type", {"content_type": validation["content_type"]}
+                    "content_type", {"content_type": validation["extra"]}
                 )
 
             data = pd.read_excel(data.read())
