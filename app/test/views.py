@@ -3,28 +3,30 @@ from .forms import Excelform
 from .models import PhonebookEntry
 from .helpers.functions import normalize_phone_number
 from django.db.utils import IntegrityError
+import pandas as pd
 
 
-def save_excel_data(data, duplicates_index_list=[]):
-    import pandas as pd
-
+def save_excel_data(data):
     df = pd.read_excel(data)
+    duplicates_index_list = []
+
     for index, line in df.iterrows():
+        full_name = line["full_name"]
+        primary_number = normalize_phone_number(line["primary_number"])
+        secondary_number = normalize_phone_number(line["secondary_number"])
+
         try:
-            phonebook_entry = PhonebookEntry(
-                full_name=line["full_name"],
-                primary_number=normalize_phone_number(line["primary_number"]),
-                secondary_number=normalize_phone_number(line["secondary_number"]),
+            PhonebookEntry.objects.create(
+                full_name=full_name,
+                primary_number=primary_number,
+                secondary_number=secondary_number,
             )
-            phonebook_entry.save()
-        except IntegrityError as e:
+        except IntegrityError:
             duplicates_index_list.append(
                 {
-                    "full_name": line["full_name"],
-                    "primary_number": normalize_phone_number(line["primary_number"]),
-                    "secondary_number": normalize_phone_number(
-                        line["secondary_number"]
-                    ),
+                    "full_name": full_name,
+                    "primary_number": primary_number,
+                    "secondary_number": secondary_number,
                 }
             )
             continue
@@ -42,7 +44,6 @@ def upload(request):
             data = request.FILES["file_upload"]
 
             duplicates_index_list = save_excel_data(data)
-
             file_form.save(commit=True)
 
             if not duplicates_index_list:
