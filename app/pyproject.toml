@@ -15,6 +15,7 @@ openpyxl = "^3.1.2"
 phonenumbers = "^8.13.22"
 pytest = "^7.4.2"
 black = "^23.9.1"
+pytest-django = "^4.5.2"
 
 
 [build-system]
