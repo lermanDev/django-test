@@ -9,26 +9,14 @@ import pandas as pd
 def save_excel_data(data):
     df = pd.read_excel(data)
     duplicates_index_list = []
+    clean_columns = ["primary_number", "secondary_number"]
+    df[clean_columns] = df[clean_columns].map(lambda s: normalize_phone_number(s))
 
     for index, line in df.iterrows():
-        full_name = line["full_name"]
-        primary_number = normalize_phone_number(line["primary_number"])
-        secondary_number = normalize_phone_number(line["secondary_number"])
-
         try:
-            PhonebookEntry.objects.create(
-                full_name=full_name,
-                primary_number=primary_number,
-                secondary_number=secondary_number,
-            )
+            PhonebookEntry.objects.create(**dict(line))
         except IntegrityError:
-            duplicates_index_list.append(
-                {
-                    "full_name": full_name,
-                    "primary_number": primary_number,
-                    "secondary_number": secondary_number,
-                }
-            )
+            duplicates_index_list.append(dict(line))
             continue
     return duplicates_index_list
 

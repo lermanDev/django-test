@@ -5,7 +5,7 @@ def normalize_phone_number(phone_number_str: str):
     try:
         # Remove any non-numeric characters and replace hyphens with spaces
         phone_number_str = "".join(
-            char for char in phone_number_str if char.isdigit() or char in "+"
+            char for char in str(phone_number_str) if char.isdigit() or char in "+"
         )
 
         # Parse the phone number string

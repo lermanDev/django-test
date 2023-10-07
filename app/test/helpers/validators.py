@@ -21,6 +21,7 @@ class FileValidator(object):
 
     def __init__(self, content_types=()):
         self.content_types = content_types
+        self.errors = {}
 
     def _handle_validation_error(self, error_type, error_params):
         raise ValidationError(
@@ -30,9 +31,8 @@ class FileValidator(object):
     def validate_phones(self, data):
         # Invalid phones Validation
         validated_rows = data.apply(validate_row_numbers, axis=1)
-        invalid_phone_rows = [
-            val + 2 for val in list(validated_rows.index[~validated_rows])
-        ]
+        invalid_frame = validated_rows.index[~validated_rows]
+        invalid_phone_rows = [val + 2 for val in list(invalid_frame)]
         if invalid_phone_rows:
             self._handle_validation_error(
                 "invalid_phone_rows", {"invalid_phone_rows": invalid_phone_rows}
@@ -89,6 +89,7 @@ class FileValidator(object):
             self.validate_filetype(data)
 
             data = pd.read_excel(data.read())
+            self.validate_empty_data(data)
 
             # Normalize all data
             clean_columns = ["primary_number", "secondary_number"]
@@ -96,8 +97,7 @@ class FileValidator(object):
                 lambda s: normalize_phone_number(s)
             )
 
-            self.validate_phones(data)
             self.validate_column_order(data)
             self.validate_missing_columns(data)
-            self.validate_empty_data(data)
+            self.validate_phones(data)
             self.validate_duplicates(data)
