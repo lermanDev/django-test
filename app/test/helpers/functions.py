@@ -35,16 +35,3 @@ def validate_row_numbers(row):
     ):
         return False
     return True
-
-
-# File XLSX Validation
-def is_valid_filetype(data, valid_content_types):
-    import magic
-
-    content_type = magic.from_buffer(data.read(), mime=True)
-    data.seek(0)
-
-    if content_type not in valid_content_types:
-        return {"result": False, "extra": content_type}
-
-    return {"result": True, "extra": content_type}
