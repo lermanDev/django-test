@@ -6,11 +6,9 @@
   <main role="main">
     <div class="jumbotron">
       <div class="container">
-        <h1 class="display-3 green">¡UPLOAD COMPLETE!</h1>
-        <p>List of constacts</p>
-        <div id="contacts_table">
-          {{ phone_book_html }}
-        </div>
+        <h1 class="display-3 green">¡Complete!</h1>
+        <p>We have imported your contact list, but next contacts were duplicated and not imported.</p>
+        {{ duplicates_index_list }}
       </div>
     </div>
   </main>

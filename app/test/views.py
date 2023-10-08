@@ -6,7 +6,7 @@ import pandas as pd
 from django.utils.safestring import mark_safe
 
 
-def save_excel_data(data):
+def save_excel_data_returning_duplicates(data):
     duplicates_index_list = []
     for index, line in data.iterrows():
         try:
@@ -25,20 +25,23 @@ def upload(request):
         file_form = Excelform(request.POST, request.FILES)
 
         if file_form.is_valid():
-            duplicates_index_list = save_excel_data(
-                file_form.cleaned_data["clean_dict"]
+            duplicates_index_list = save_excel_data_returning_duplicates(
+                file_form.cleaned_data["clean_data"]
             )
             file_form.save(commit=True)
 
             if not duplicates_index_list:
+                df = pd.DataFrame(list(PhonebookEntry.objects.all()))
                 return render(
                     request,
                     "success.html",
-                    {"phone_book_list": PhonebookEntry.objects.all()},
+                    {"phone_book_html": mark_safe(df.to_html())},
                 )
 
             return render(
-                request, "failed.html", {"duplicates_index_list": duplicates_index_list}
+                request,
+                "complete_w_duplicates.html",
+                {"duplicates_index_list": duplicates_index_list},
             )
         form = file_form
         return render(
