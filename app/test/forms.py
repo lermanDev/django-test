@@ -224,4 +224,18 @@ class Excelform(forms.ModelForm):
         self.validate_missing_columns(data, required_columns)
         self.validate_duplicates(data, action_columns)
         self.validate_duplicates_db(data, action_columns)
+
+        self.cleaned_data["clean_data"] = data
+
         return super().clean()
+
+    def save(self, commit=True):
+        m = super(Excelform, self).save(commit=False)
+
+        data = self.cleaned_data["clean_data"]
+
+        for index, line in data.iterrows():
+            PhonebookEntry.objects.create(**dict(line))
+        if commit:
+            m.save()
+        return m
