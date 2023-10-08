@@ -1,9 +1,11 @@
 from django.shortcuts import render
 from .forms import Excelform
-from .models import PhonebookEntry
 from django.db.utils import IntegrityError
 import pandas as pd
 from django.utils.safestring import mark_safe
+from .models import File, PhonebookEntry
+from django.views.generic import CreateView
+from django.urls import reverse_lazy
 
 
 def save_excel_data_returning_duplicates(data):
@@ -13,7 +15,6 @@ def save_excel_data_returning_duplicates(data):
             PhonebookEntry.objects.create(**dict(line))
         except IntegrityError:
             duplicates_index_list.append(dict(line))
-            continue
     return duplicates_index_list
 
 
@@ -64,3 +65,10 @@ def upload(request):
             "form": form,
         },
     )
+
+
+class UploadPhoneBookView(CreateView):
+    model = File
+    form_class = Excelform
+    success_url = reverse_lazy("upload_excel")
+    template_name = "upload_form.html"
