@@ -231,11 +231,11 @@ class Excelform(forms.ModelForm):
 
     def save(self, commit=True):
         m = super(Excelform, self).save(commit=False)
-
-        data = self.cleaned_data["clean_data"]
-
-        for index, line in data.iterrows():
+        [
             PhonebookEntry.objects.create(**dict(line))
+            for index, line in self.cleaned_data["clean_data"].iterrows()
+        ]
+
         if commit:
             m.save()
         return m
