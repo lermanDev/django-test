@@ -15,9 +15,24 @@
             <input type="submit" value="Submit" class="btn btn-primary btn-lg" />
           </form>
         </div>
-        {% if form.errors %}
+        {% if form.non_field_errors %}
           <h3>Upload failed</h3>
-          <div class="alert alert-danger">{{ form.errors }}</div>
+          <div class="alert alert-danger">{{ form.non_field_errors }}</div>
+          <table class="table">
+            <tr>
+              <th>full_name</th>
+              <th>primary_number</th>
+              <th>secondary_number</th>
+            </tr>
+            {{ clean_table }}
+            {% for o in clean_dict %}
+              <tr>
+                <td>{{ o }}</td>
+                <td>{{ o.primary_number }}</td>
+                <td>{{ o.secondary_number }}</td>
+              </tr>
+            {% endfor %}
+          </table>
         {% endif %}
       </div>
     </div>

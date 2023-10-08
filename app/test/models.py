@@ -2,19 +2,13 @@ from django.db import models
 from django.core.validators import FileExtensionValidator
 from datetime import datetime
 from django.contrib.auth.models import User
-from .helpers.validators import FileValidator
 
-
-validate_file = FileValidator(
-    content_types=("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",)
-)
 file_validator = FileExtensionValidator(allowed_extensions=["xlsx"])
-validators = [validate_file, file_validator]
 
 
 class File(models.Model):
     filename = models.CharField(max_length=250)
-    file_upload = models.FileField(upload_to="files/", validators=validators)
+    file_upload = models.FileField(upload_to="files/", validators=[file_validator])
     upload_date = models.DateField(default=datetime.now)
 
     def __str__(self):
