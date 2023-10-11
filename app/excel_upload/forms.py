@@ -54,7 +54,6 @@ class Excelform(forms.ModelForm):
         nan_rows = data_nan.any(axis=1)
         invalid_rows = [val for val in list(nan_rows.index[nan_rows])]
         if invalid_rows:
-            self.cleaned_data["error_dict"] = data_nan
             self._handle_validation_error(
                 "invalid_phone_rows", {"invalid_phone_rows": invalid_rows}
             )
@@ -207,7 +206,7 @@ class Excelform(forms.ModelForm):
 
         data = pd.read_excel(file_data.read())
         self.cleaned_data["clean_dict"] = data
-        # self.validate_empty_data(data)
+        self.validate_empty_data(data)
 
         data_normalized = data[action_columns].map(
             lambda s: self.normalize_phone_number(s)

@@ -20,7 +20,7 @@ from django.shortcuts import redirect
 
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', lambda req: redirect('/upload/')),
-    path('upload/', include("test.urls")),
+    path("admin/", admin.site.urls),
+    path("", lambda req: redirect("/upload/")),
+    path("upload/", include("excel_upload.urls")),
 ]

@@ -1,4 +1,3 @@
-import pytest
 from django.test import TestCase
 
 from excel_upload.models import PhonebookEntry
@@ -13,7 +12,6 @@ class PhoneBookDBTest(TestCase):
         }
         PhonebookEntry.objects.create(**pb_dict)
 
-    # @pytest.mark.django_db
     def test_phonebookentry_creation(self):
         pb_entry = PhonebookEntry.objects.get(primary_number="+1 (123) 456-7890")
         assert pb_entry.full_name == "John Doe"
