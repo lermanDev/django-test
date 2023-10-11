@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "test",
+    "excel_upload",
 ]
 
 MIDDLEWARE = [
@@ -56,7 +56,7 @@ ROOT_URLCONF = "app.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [os.path.join(BASE_DIR, "test", "templates")],
+        "DIRS": [os.path.join(BASE_DIR, "excel_upload", "templates")],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [

@@ -35,12 +35,11 @@ class UploadPhoneBookView(CreateView):
         if file_form.is_valid():
             file_form.save(commit=True)
             return redirect("success")
-        form = file_form
         return render(
             request,
             "upload_form.html",
             {
-                "form": form,
+                "form": file_form,
                 "clean_table": mark_safe(
                     file_form.cleaned_data["clean_dict"].to_html()
                 ),
